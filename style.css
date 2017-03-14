@@ -1,0 +1,31 @@
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+footer {
+	font-size: 1em;
+	margin: 1.5em 0;
+	text-align: center;
+}
+
+h5 {
+	font-size: 1.5em;
+}
+
+.hero {
+	text-align: center;
+	
+}
+
+.user {
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.user:hover {
+	color: #1EAEDB;
+}
+
+.shade {
+	background: rgba(0,0,0,0.2);
+}

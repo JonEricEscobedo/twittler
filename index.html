@@ -3,41 +3,56 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
     <title>Twittler (Testing)</title>
   </head>
   <body>
-    <header>      <!-- Hero Section -->
-      <h1>Twittler</h1>
-    </header>
 
-    <navigation>  <!-- Navigation Section -->
-      <button type='button' class="btn btn-primary refresh-tweets">Refresh</button>
-    </navigation>
+    <div class="container">
+      <header class="row hero"> <!-- Hero Section -->
+        <h1>Twittler</h1>
+      </header>
 
-    <section class="live-tweets">     <!-- Tweet Section -->
+      <div class="row">
+        <navigation> <!-- Navigation Section -->
+          <button type='button' class="button-primary refresh-tweets">Refresh</button>
+        </navigation>
+      </div>
 
-    </section>
+      <div class="row">
+        <section class="eight columns live-tweets"> <!-- Tweet Section -->
 
-    <footer>      <!-- Footer & Credits Section -->
+        </section>
+    
+        <aside class="four columns">
+          <h5>A small web-application</h5>
+          <p>Twittler utilizes a combination of:</p>
+          <ul>
+            <li>HTML</li>
+            <li>CSS - Skeleton</li>
+            <li>JavaScript - jQuery</li>
+          </ul>
 
-    </footer>
-
+        </aside>
+      </div>  
+      <footer> <!-- Footer & Credits Section -->
+        <p>By Jon Eric Escobedo for Hack Reactor, 2017</p>
+      </footer>
+    </div>
     <script>
       function getTweets(userTweets) {
-        //var $body = $('body');
         var $body = $('.live-tweets');
         var index = userTweets.length - 1;
         var maxTweets = 0;
         $body.html('');
 
         while(index >= 0 && maxTweets < 50){
-          //var tweet = streams.home[index];
           var tweet = userTweets[index];
-          //var $tweet = $('<div></div>');
           var $tweet = $('<div><span class="user"></span><span class="user-message"></span></div>');
 
-          //$tweet.text('@' + tweet.user + ': ' + tweet.message);
           $tweet.children('.user').text('@' + tweet.user);
           $tweet.children('.user-message').text(': ' + tweet.message);
           $tweet.appendTo($body);
@@ -52,17 +67,17 @@
 
         $('.refresh-tweets').on('click', function() {
           getTweets(streams.home);
+          $('.refresh-tweets').text('refresh');
         });
 
         $('.live-tweets').on('click', '.user', function() {
           var currentUser = $(this).text().slice(1);
-          console.log(currentUser);
-          //userTweets(currentUser);
-          getTweets(streams.users[currentUser])
+          getTweets(streams.users[currentUser]);
+          $('.refresh-tweets').text('all streams');
         });
       });
 
     </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </body>
 </html>
