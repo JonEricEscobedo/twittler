@@ -45,14 +45,14 @@
 
             <p class="text-muted" id="instructions">Twittler creates a fictional twitter-esque feed. To see an individual's timeline feed, click on their username.</p>
 
-            <p class="text-muted" id="technologies">Twittler utilizes <a target="_blank" href="https://jquery.com/">jQuery</a>, <a target="_blank" href="http://timeago.yarp.com/">timeago.js</a>, <a target="_blank" href="https://necolas.github.io/normalize.css/">normalize.css</a>, and <a target="_blank" href="https://v4-alpha.getbootstrap.com/">bootstrap 4</a>.</p>
+            <p class="text-muted" id="technologies">Twittler utilizes <a target="_blank" href="https://jquery.com/">jQuery</a>, <a target="_blank" href="http://timeago.yarp.com/">timeago.js</a>, <a target="_blank" href="https://necolas.github.io/normalize.css/">normalize.css</a>, and <a target="_blank" href="https://v4-alpha.getbootstrap.com/">Bootstrap 4</a>.</p>
 
           </aside>
           
           <!-- Refresh button -->
           <navigation> 
 
-            <button type="button" class="btn btn-outline-primary btn-lg btn-refresh">Refresh</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-refresh">New Tweets</button>
 
           </navigation>
 
@@ -104,12 +104,14 @@
         // Fire new tweets on refresh button click
         $('.btn-refresh').on('click', function(){
           printTweets(streams.home);
+          $('.btn-refresh').text('New Tweets');
         });
 
         // Only show 'this' user's tweets on username click
         $('.feed').on('click', '.user', function() {
           var userName = $(this).text().slice(1);
           printTweets(streams.users[userName]);
+          $('.btn-refresh').text('All Tweets');
         })
 
       });
