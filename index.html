@@ -1,87 +1,119 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery -->
     <script src="jquery.js"></script>
+
+    <!-- Timeago.js for human-readable time -->
     <script src="jquery.timeago.js" type="text/javascript"></script>
+
+    <!-- Hack Reactor provided script -->
     <script src="data_generator.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+
+    <!-- Normalize.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" integrity="sha256-uHu2MAd1LvCOVEAhvMld4LpJi7dUGS7GVzvG/5B3hlo=" crossorigin="anonymous" />
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Custom stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
-    <title>Twittler (Testing)</title>
+
+    <title>Twittler. HRSF75</title>
   </head>
+
+  <!-- HTML Body starts here -->
   <body>
-
     <div class="container">
-      <div class="row">
-        <header> <!-- Hero Section -->
-          <h1 class="hero">Twittler</h1>      
-          <p class="tagline">A small web-application that utilizes HTML, CSS, and JavaScript.</p>
-          <p class="descriptor">Twittler displays computer generated tweets from a few users and displays them. To see an individual user's tweets, just click on the tweeters username.</p>
-        </header>
-      </div>
-      <div class="row center-me">
-        <navigation> <!-- Navigation Section -->
-          <button type='button' class="button-primary refresh-tweets">Refresh</button>
-        </navigation>
+
+      <!-- New Row Here --> 
+      <div class="row"> 
+        <div class="col col-sm-12 col-lg-3">
+
+          <!-- Header Section -->
+          <header>
+
+            <h1 class="logo">Twittler.</h1>
+
+          </header>
+
+          <!-- Tagline Section -->
+          <aside class="tagline"> 
+
+            <p class="lead">A small web application.</p>
+
+            <p class="text-muted" id="instructions">Twittler creates a fictional twitter-esque feed. To see an individual's timeline feed, click on their username.</p>
+
+            <p class="text-muted" id="technologies">Twittler utilizes <a target="_blank" href="https://jquery.com/">jQuery</a>, <a target="_blank" href="http://timeago.yarp.com/">timeago.js</a>, <a target="_blank" href="https://necolas.github.io/normalize.css/">normalize.css</a>, and <a target="_blank" href="https://v4-alpha.getbootstrap.com/">bootstrap 4</a>.</p>
+
+          </aside>
+          
+          <!-- Refresh button -->
+          <navigation> 
+
+            <button type="button" class="btn btn-outline-primary btn-lg btn-refresh">Refresh</button>
+
+          </navigation>
+
+        </div>
+
+          <!-- Twitter Feed Section -->
+          <article class="feed"> 
+            <!-- See JavaScript below -->
+          </article>
+        
       </div>
 
-      <div class="row">
-        <!-- <section class="live-tweets u-full-width">
-        </section> -->
-        <table class="u-full-width">
-          <thead>
-            <th>User</th>
-            <th>Message</th>
-            <th>Tweeted</th>
-          </thead>
-          <tbody class="live-tweets">
-          </tbody>
-        </table>
-      </div>
-
-      <footer> <!-- Footer & Credits Section -->
-        <p>By Jon Eric Escobedo for Hack Reactor, 2017</p>
-      </footer>
     </div>
 
+    <!-- Footer Section -->
+    <footer class="footer footer-styling">
+      <div class="container">
+
+        <p class="text-muted">By <a target="_blank" href="https://github.com/JonEricEscobedo">Jon Eric Escobedo</a> for <a target="_blank" href="http://www.hackreactor.com/">Hack Reactor</a> SF #75. For educational purposes, only.</p>
+
+      </div>
+    </footer>
+
     <script>
-      function getTweets(userTweets) {
-        var $body = $('.live-tweets');
+      // Function to print tweets to screen
+      function printTweets(userTweets) {
+        var $body = $('.feed');
         var index = userTweets.length - 1;
-        var maxTweets = 0;
+
         $body.html('');
 
-        while(index >= 0 && maxTweets < 500){
-          var tweet = userTweets[index];
-          var $tweet = $('<tr><td class="user"></td><td class="user-message"></td><td class="created"></td></tr>');
-          var getTime = jQuery.timeago(tweet.created_at); 
+        while(index >= 0){
+          var tweet = userTweets[index]
+          var $tweet = $('<div><span class="user"></span><span class="message"></span><span class="created text-muted"></span></div>')
 
           $tweet.children('.user').text('@' + tweet.user);
-          $tweet.children('.user-message').text(tweet.message);
-          $tweet.children('.created').text(' ' + getTime);
+          $tweet.children('.message').text(' ' + tweet.message + ' ');
+          $tweet.children('.created').text(jQuery.timeago(tweet.created_at));
           $tweet.appendTo($body);
 
           index -= 1;
-          maxTweets++;
         }
       }
 
       $(document).ready(function(){
-        getTweets(streams.home);
+        // Fire tweets on page load
+        printTweets(streams.home);
 
-        $('.refresh-tweets').on('click', function() {
-          getTweets(streams.home);
-          $('.refresh-tweets').text('refresh');
+        // Fire new tweets on refresh button click
+        $('.btn-refresh').on('click', function(){
+          printTweets(streams.home);
         });
 
-        $('.live-tweets').on('click', '.user', function() {
-          var currentUser = $(this).text().slice(1);
-          getTweets(streams.users[currentUser]);
-          $('.refresh-tweets').text('all streams');
-        });
+        // Only show 'this' user's tweets on username click
+        $('.feed').on('click', '.user', function() {
+          var userName = $(this).text().slice(1);
+          printTweets(streams.users[userName]);
+        })
+
       });
 
     </script>
-    
   </body>
 </html>
