@@ -1,31 +1,44 @@
 body {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Raleway', sans-serif; 
 }
 
 footer {
 	font-size: 1em;
-	margin: 1.5em 0;
+	margin: 1.5em 0; 
+}
+.center-me {
 	text-align: center;
 }
-
 h5 {
-	font-size: 1.5em;
+	font-size: 1.5em; 
 }
-
 .hero {
-	text-align: center;
-	
+	border-top: 4px solid black;
+	float: left;
 }
-
+.tagline {
+	padding-top: 20px;
+	padding-left: 200px;
+}
+.descriptor {
+	margin-top: 50px;
+}
 .user {
 	font-weight: 500;
-	cursor: pointer;
+	cursor: pointer; 
 }
 
 .user:hover {
-	color: #1EAEDB;
+	color: #1EAEDB; 
 }
 
 .shade {
-	background: rgba(0,0,0,0.2);
+	background: rgba(0,0,0,0.2); 
 }
+
+.created {
+	font-size: 0.8em;
+	font-weight: 200;
+	color: gray; 
+}
+
